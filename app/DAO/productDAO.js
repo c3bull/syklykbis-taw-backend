@@ -40,6 +40,7 @@ const ProductModel = mongoose.model('products', productSchema);
 
 async function getAll() {
     const result = await ProductModel.find();
+    console.log('results: ', result)
     if (result) {
         return result;
     }

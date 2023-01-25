@@ -66,7 +66,7 @@ const ProductType = new GraphQLObjectType({
 const OrderType = new GraphQLObjectType({
     name: 'Order',
     fields: () => ({
-        orderedProducts: { type: OrderedProductsType },
+        orderedProducts: { type: new GraphQLList(OrderedProductsType)},
         placementDate: { type: GraphQLString },
         totalPrice: { type: GraphQLString },
         email: { type: GraphQLString }
@@ -80,15 +80,19 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(ProductType),
             args: { category: { type: GraphQLString } },
             async resolve(parent, args) {
-                if(!args.category) {
-                    return await business.getProductManager().get();
+                if(args.category) {
+                    return await business.getProductManager().getProductsByCategory(args.category);
                 }
-                return await business.getProductManager().getProductsByCategory(args.category);
+                return await business.getProductManager().get();
             }
         },
         order: {
             type: new GraphQLList(OrderType),
-            async resolve() {
+            args: { email: { type: GraphQLString } },
+            async resolve(parent, args) {
+                if(args.email) {
+                    return await business.getOrderManager().getOrderByUserEmail(args.email);
+                }
                 return await business.getOrderManager().get();
             }
         }

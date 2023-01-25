@@ -4,12 +4,12 @@ import mongoConverter from '../service/mongoConverter';
 
 
 const orderSchema = new mongoose.Schema({
-    orderedProducts: {
+    orderedProducts: [{
             amount: Number,
             hint: String,
             name: String,
             productId: Number,
-        },
+        }],
     placementDate: String,
     totalPrice: String,
     email: String,
