@@ -1,4 +1,4 @@
-import {GraphQLFloat, GraphQLInt, GraphQLList} from "graphql";
+import {GraphQLFloat, GraphQLInt, GraphQLList, GraphQLNonNull} from "graphql";
 
 const graphql = require('graphql');
 import business from "./business/business.container";
@@ -99,6 +99,26 @@ const RootQuery = new GraphQLObjectType({
     }
 });
 
+const Mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+        makeOrder: {
+            type: OrderType,
+            args: {
+                orderedProducts: OrderedProductsType,
+                placementDate: {type: new GraphQLNonNull(GraphQLString)},
+                totalPrice: {type: new GraphQLNonNull(GraphQLString)},
+                email: {type: new GraphQLNonNull(GraphQLString)},
+            },
+            async resolve(parent, args) {
+                console.log("Result", args);
+                return await business.getOrderManager().makeOrder(args);
+            }
+        },
+    }
+});
+
 module.exports = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    Mutation: Mutation
 });
