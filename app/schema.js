@@ -18,6 +18,7 @@ const OrderedProductsType = new GraphQLObjectType({
     })
 })
 
+
 const TableLabelsType = new GraphQLObjectType({
     name: 'TableLabelsType',
     fields: () => ({
@@ -29,6 +30,17 @@ const TableLabelsType = new GraphQLObjectType({
         wTymCukry: {type: GraphQLString},
         bialko: {type: GraphQLString},
         sol: {type: GraphQLString},
+        kationy: {type: GraphQLString},
+        wapniowy: {type: GraphQLString},
+        magnezowy: {type: GraphQLString},
+        sodowy: {type: GraphQLString},
+        potasowy: {type: GraphQLString},
+        aniony: {type: GraphQLString},
+        wodoroweglanowy: {type: GraphQLString},
+        siarczanowy: {type: GraphQLString},
+        chlorkowy: {type: GraphQLString},
+        fluorkowy: {type: GraphQLString},
+        suma: {type: GraphQLString},
     })
 })
 
@@ -43,6 +55,17 @@ const TableValuesType = new GraphQLObjectType({
         wTymCukry: {type: GraphQLString},
         bialko: {type: GraphQLString},
         sol: {type: GraphQLString},
+        kationy: {type: GraphQLString},
+        wapniowy: {type: GraphQLString},
+        magnezowy: {type: GraphQLString},
+        sodowy: {type: GraphQLString},
+        potasowy: {type: GraphQLString},
+        aniony: {type: GraphQLString},
+        wodoroweglanowy: {type: GraphQLString},
+        siarczanowy: {type: GraphQLString},
+        chlorkowy: {type: GraphQLString},
+        fluorkowy: {type: GraphQLString},
+        suma: {type: GraphQLString},
     })
 })
 
@@ -59,7 +82,8 @@ const ProductType = new GraphQLObjectType({
         price: {type: GraphQLFloat},
         netPrice: {type: GraphQLFloat},
         vat: {type: GraphQLFloat},
-        hint: { type: GraphQLString }
+        hint: { type: GraphQLString },
+        number: { type: GraphQLInt }
     })
 });
 
