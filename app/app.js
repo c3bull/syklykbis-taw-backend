@@ -12,7 +12,8 @@ const cors = require("cors");
 mongoose.connect(config.databaseUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
 }, (error) => {
     if (error) {
         console.error(error);

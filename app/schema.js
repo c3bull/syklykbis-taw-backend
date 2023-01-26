@@ -1,4 +1,4 @@
-import {GraphQLFloat, GraphQLInt, GraphQLList, GraphQLNonNull} from "graphql";
+import {GraphQLFloat, GraphQLInputObjectType, GraphQLInt, GraphQLList, GraphQLNonNull} from "graphql";
 
 const graphql = require('graphql');
 import business from "./business/business.container";
@@ -10,6 +10,16 @@ const { GraphQLObjectType, GraphQLString,
 
 const OrderedProductsType = new GraphQLObjectType({
     name: 'OrderedProductsType',
+    fields: () => ({
+        amount: {type: GraphQLString},
+        hint: {type: GraphQLString},
+        name: {type: GraphQLString},
+        productId: {type: GraphQLInt},
+    })
+})
+
+const OrderedProductsInputType = new GraphQLInputObjectType({
+    name: 'OrderedProductsInputType',
     fields: () => ({
         amount: {type: GraphQLString},
         hint: {type: GraphQLString},
@@ -129,14 +139,22 @@ const Mutation = new GraphQLObjectType({
         makeOrder: {
             type: OrderType,
             args: {
-                orderedProducts: OrderedProductsType,
+                orderedProducts: {type: new GraphQLList(OrderedProductsInputType)},
                 placementDate: {type: new GraphQLNonNull(GraphQLString)},
                 totalPrice: {type: new GraphQLNonNull(GraphQLString)},
                 email: {type: new GraphQLNonNull(GraphQLString)},
             },
             async resolve(parent, args) {
-                console.log("Result", args);
                 return await business.getOrderManager().makeOrder(args);
+            }
+        },
+        deleteOrder: {
+            type: OrderType,
+            args: {
+                id: {type: new GraphQLNonNull(GraphQLString)},
+            },
+            async resolve(parent, args) {
+                return await business.getOrderManager().deleteOrderById(args.id);
             }
         },
     }
@@ -144,5 +162,5 @@ const Mutation = new GraphQLObjectType({
 
 module.exports = new GraphQLSchema({
     query: RootQuery,
-    Mutation: Mutation
+    mutation: Mutation
 });
