@@ -11,7 +11,7 @@ const { GraphQLObjectType, GraphQLString,
 const OrderedProductsType = new GraphQLObjectType({
     name: 'OrderedProductsType',
     fields: () => ({
-        amount: {type: GraphQLString},
+        amount: {type: GraphQLInt},
         hint: {type: GraphQLString},
         name: {type: GraphQLString},
         productId: {type: GraphQLInt},
@@ -21,7 +21,7 @@ const OrderedProductsType = new GraphQLObjectType({
 const OrderedProductsInputType = new GraphQLInputObjectType({
     name: 'OrderedProductsInputType',
     fields: () => ({
-        amount: {type: GraphQLString},
+        amount: {type: GraphQLInt},
         hint: {type: GraphQLString},
         name: {type: GraphQLString},
         productId: {type: GraphQLInt},
@@ -103,7 +103,8 @@ const OrderType = new GraphQLObjectType({
         orderedProducts: { type: new GraphQLList(OrderedProductsType)},
         placementDate: { type: GraphQLString },
         totalPrice: { type: GraphQLString },
-        email: { type: GraphQLString }
+        email: { type: GraphQLString },
+        id: { type: GraphQLID }
     })
 });
 
